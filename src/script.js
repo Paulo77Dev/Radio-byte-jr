@@ -6,35 +6,35 @@ const stationsUrl = {
 }
 
 const stations = {
-  94.3: 'Atlantida',
+  94.3: 'Atlântida',
   97.1: 'Oceano',
   102.1: 'Gaúcha',
   103.3: 'Cultura',
 }
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function(){
 
-const image = document.querySelector(' #img ');
-const input = document.querySelector('#range-input');
-const stationText = document.querySelector('#stationtext');
-const currentStationNumber = document.querySelector('#station-sumber');
+  const image = document.querySelector('#img');
+  const input = document.querySelector('#range-input');
+  const stationText = document.querySelector('#station-text');
+  const currentStationNumber = document.querySelector('#station-number');
 
-input.addEventListener('input', function (e){
-  const freq = e.target.value;
+  input.addEventListener('input', function(e){
+    const freq = e.target.value;
+    const newStation = stationsUrl[freq];
+    
+    if(newStation !== undefined){
+      image.src = `public/assets/stations/${newStation}.png`;
+      currentStationNumber.innerHTML = Number(freq).toFixed(1);
+      stationText.innerHTML = `- Rádio ${stations[freq]}`;
+    
+    }else{
+      if(stationText.textContent === 'Fora do ar') return;
 
-  const newStation = stationsUrl[freq];
+      image.src = `public/assets/stations/default.png`;
+      currentStationNumber.innerHTML = Number(freq).toFixed(1);
+      stationText.innerHTML = `- Fora do ar`;
+    }
 
- /* if(newStation === undefined ){
-    image.src = 'public/assets/station/${newStation}.png' ;
-    currentStationNumber.innerHTML = freq;
-    stationText.innerHTML = ' - Rádio ${stations[freq]}' ;
-
-}else{
-  if(StationText.textContent == 'Fora do ar') return;
-
-  image.src = 'public/assets/stations/default.png';
-  currentStationNumber.innerHTML = freq;
-  stationText.innerHTML = ' - Fora do ar';
-}*/
-});
+  });
 });
